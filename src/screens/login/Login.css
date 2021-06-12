@@ -1,0 +1,30 @@
+.red {
+    color: red;
+}
+
+.card-container {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px; */
+    width: 30%;
+    margin: auto;
+    padding: 1%;
+}
+
+.card-content {
+    margin: 50px;
+}
+
+.login-card-form-username,
+.login-card-form-password {
+    width: 350px;
+}
+
+.dispNone {
+    display: none;
+  }
+  
+  .dispBlock {
+    display: block;
+  }
