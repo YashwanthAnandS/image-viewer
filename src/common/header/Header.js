@@ -8,7 +8,8 @@ class Header extends Component {
         super();
         this.state = {
             openMenu: false,
-            anchorEl: null
+            anchorEl: null,
+            searchText: ""
         }
     }
 
@@ -33,6 +34,10 @@ class Header extends Component {
         this.setState({'openMenu': !this.state.openMenu, 'anchorEl': null});
     }
 
+    handleChange = e => {
+        this.props.handleChange(e);
+    };
+
     render() {
         return (
             <div className="header">
@@ -44,12 +49,12 @@ class Header extends Component {
                                 <header className='logo' onClick={this.logoClickHandler}>Image Viewer</header>
                             </div>
                             <div className='header-right-section'>
-                                <Input className='search' type='search' placeholder='Search...' p={5} disableUnderline
+                                <Input className='search' type='search' placeholder='Search...' p={5} onChange={(e) => this.handleChange(e)} disableUnderline
                                     startAdornment={
                                         <InputAdornment position="start"><SearchIcon /></InputAdornment>
                                     } />
                                 <IconButton id='profile-icon' onClick={this.profileClickHandler}>
-                                <Avatar variant="circle" alt="profile_picture" style={{border: '2px solid whitesmoke'}} src={this.props.dpUrl}/>
+                                    <Avatar variant="circle" alt="profile_picture" style={{border: '2px solid whitesmoke'}} src={this.props.dpUrl}/>
                                 </IconButton>
                                 <div>
                                     <Menu open={this.state.openMenu} onClose={this.menuCloseHandler}

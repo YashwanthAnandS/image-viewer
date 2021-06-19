@@ -4,9 +4,10 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { Card, CardContent, Link, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography } from '@material-ui/core';
 import './Login.css';
 import Header from '../../common/header/Header';
+import { Redirect } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -18,7 +19,7 @@ class Login extends Component {
             usernameRequiredLabel: "hide",
             passwordRequiredLabel: "hide",
             invalidLoginLabel: "hide",
-            userLoggedIn: false
+            loggedIn: sessionStorage.getItem("access-token") == null ? false : true
         }
     }
 
@@ -35,7 +36,7 @@ class Login extends Component {
     loginClickedHandler = () => {
         let mockUsername = "admin";
         let mockPassword = "admin";
-        let accessToken = "IGQVJYU3J6b1U5MjRfSjNyNTJ6azJNWWVEUFNMVXp2OU1CNnJQQTdDWnVQTGtHaFVhV2RSQ2Uzdnl3MUt5LWhCWnRfMEtISkRtRHJuZAjhaYXpaOGx2RWtRMnc1WFgwLVZAlc3FmOUFIZA1E0Sjlod0pGRAZDZD";
+        let accessToken = "IGQVJVeUxjZAzRTbXVQSTNjMVY0MUhIdUZA1bS1HRTNrSU5RZAjNfeW11bEpuMmI2NnNyclJvcTV2MF9xNG9ZAbTEyT3ZAVRlJzNWVYSnpldnZAvRDU2dFN4aklFWFNnOTJUSlFfZA3lWc01wQ08ybi0zeEZAkMgZDZD";
 
         this.state.username === "" ? this.setState({usernameRequiredLabel:"red"}) : this.setState({usernameRequiredLabel:"hide"});
         this.state.password === "" ? this.setState({passwordRequiredLabel:"red"}) : this.setState({passwordRequiredLabel:"hide"});
@@ -43,8 +44,7 @@ class Login extends Component {
         if (this.state.username === mockUsername && this.state.password === mockPassword) {
             window.sessionStorage.setItem("access-token", accessToken);
             this.setState({invalidLoginLabel:"hide"});
-            this.setState({userLoggedIn:true});
-            this.props.history.push('/home');
+            this.props.history.push("/home");
         } else {
             if(this.state.username !== "" && this.state.password !== "")
                 this.setState({invalidLoginLabel:"red"});
@@ -53,6 +53,8 @@ class Login extends Component {
     }
 
     render() {
+        if(this.state.loggedIn===true) return <Redirect to="/home" />
+        else
         return (
             <div>
                 <Header {...this.props} loggedIn={false}/>
