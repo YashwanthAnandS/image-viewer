@@ -1,12 +1,8 @@
-.app-header {
-    background-color: #263238;
-    height: 70px;
-}
-
-.logo {
-    color: #fff;
+  
+.header{
+    text-align:left;
     font-size: 18px;
-    float: left;
-    margin-top: 20px;
-    margin-left: 20px;
-} 
+    padding: 25px;
+    background:#263238;
+    color:#fff;
+}

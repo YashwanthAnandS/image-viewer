@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Login from './screens/login/Login'; 
+import './common/header/Header.css';
+import Controller from './common/Controller';
 
 ReactDOM.render(
-    // <span>
-    //     Image Viewer
-    // </span>, 
-    <Login/>,
+    <React.StrictMode>
+        <div>
+        <Controller />
+        </div>
+    </React.StrictMode>,
     document.getElementById('root')
 );
