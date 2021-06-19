@@ -49,7 +49,7 @@ class Header extends Component {
                                         <InputAdornment position="start"><SearchIcon /></InputAdornment>
                                     } />
                                 <IconButton id='profile-icon' onClick={this.profileClickHandler}>
-                                    <Avatar variant="circle" alt="profile_picture" />
+                                <Avatar variant="circle" alt="profile_picture" style={{border: '2px solid whitesmoke'}} src={this.props.dpUrl}/>
                                 </IconButton>
                                 <div>
                                     <Menu open={this.state.openMenu} onClose={this.menuCloseHandler}

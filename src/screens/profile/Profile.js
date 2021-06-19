@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import Header from '../../common/header/Header';
 import './Profile.css';
 
@@ -13,5 +12,5 @@ class Profile extends Component {
         )
     }
 }
-
-export default withRouter(Profile);
+ 
+export default Profile;

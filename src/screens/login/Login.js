@@ -6,10 +6,8 @@ import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { Card, CardContent, Link, Typography } from '@material-ui/core';
 import './Login.css';
-import Home from '../../screens/home/Home';
-import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
-import { withRouter } from 'react-router-dom';
+
 
 class Login extends Component {
     constructor() {
@@ -83,7 +81,7 @@ class Login extends Component {
                              <span className={this.state.invalidLoginLabel}>Incorrect username and/or password</span>
                         </FormHelperText>
                         <br />
-                        <Link to="/home"><Button variant="contained" color="primary" onClick={this.loginClickedHandler}>LOGIN</Button></Link>
+                        <Button variant="contained" color="primary" onClick={this.loginClickedHandler}>LOGIN</Button>
                     </CardContent>
                 </Card>
             </div>
@@ -92,4 +90,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login);
+export default Login;
