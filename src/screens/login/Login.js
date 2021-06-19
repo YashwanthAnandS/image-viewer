@@ -6,8 +6,10 @@ import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { Card, CardContent, Link, Typography } from '@material-ui/core';
 import './Login.css';
-import '../../screens/home/Home';
+import Home from '../../screens/home/Home';
 import ReactDOM from 'react-dom';
+import Header from '../../common/header/Header';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor() {
@@ -54,6 +56,8 @@ class Login extends Component {
 
     render() {
         return (
+            <div>
+                <Header {...this.props} loggedIn={false}/>
             <div className="loginFormContainer">
                 <Card className="card">
                     <CardContent className="card-content">
@@ -83,8 +87,9 @@ class Login extends Component {
                     </CardContent>
                 </Card>
             </div>
+            </div>
         );
     }
 }
 
-export default Login;
+export default withRouter(Login);

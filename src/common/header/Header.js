@@ -1,13 +1,88 @@
-import React from 'react';
-// import './Header.css';
-import '../../common/header/Header';
+import { Avatar, Divider, IconButton, Input, InputAdornment, Menu, MenuItem, Typography } from '@material-ui/core';
+import React, { Component, Fragment } from 'react';
+import './Header.css';
+import SearchIcon from '@material-ui/icons/Search';
 
-const Header = function(prop) {
-       return (
-           <div className="header">
-               Image Viewer
-           </div>
-       )
+class Header extends Component {
+    constructor() {
+        super();
+        this.state = {
+            openMenu: false,
+            anchorEl: null
+        }
+    }
+
+    logoClickHandler = () => {
+        this.props.history.push('/home');
+    }
+
+    myAccountClickHandler = () => {
+        this.props.history.push('/profile');
+    }
+
+    logoutClickHandler = () => {
+        sessionStorage.removeItem('access-token');
+        this.props.history.push('/');
+    }
+
+    profileClickHandler = (e) => {
+        this.setState({'openMenu': !this.state.openMenu, 'anchorEl': e.currentTarget});
+    }
+
+    menuCloseHandler = () => {
+        this.setState({'openMenu': !this.state.openMenu, 'anchorEl': null});
+    }
+
+    render() {
+        return (
+            <div className="header">
+                {
+                    this.props.loggedIn === true ?
+                        //If user is logged in show Search Bar and Profile Picture on Header
+                        <Fragment>
+                            <div>
+                                <header className='logo' onClick={this.logoClickHandler}>Image Viewer</header>
+                            </div>
+                            <div className='header-right-section'>
+                                <Input className='search' type='search' placeholder='Search...' p={5} disableUnderline
+                                    startAdornment={
+                                        <InputAdornment position="start"><SearchIcon /></InputAdornment>
+                                    } />
+                                <IconButton id='profile-icon' onClick={this.profileClickHandler}>
+                                    <Avatar variant="circle" alt="profile_picture" />
+                                </IconButton>
+                                <div>
+                                    <Menu open={this.state.openMenu} onClose={this.menuCloseHandler}
+                                        anchorEl={this.state.anchorEl} getContentAnchorEl={null}
+                                        anchorOrigin={{ vertical: "bottom", horizontal: "right" }} keepMounted>
+                                        {
+                                            this.props.showMyAccount ?
+                                                <MenuItem onClick={this.myAccountClickHandler}>
+                                                    <Typography>My Account</Typography>
+                                                    <Divider variant="middle" />
+                                                </MenuItem> 
+                                                : null
+                                        }
+                                        {
+                                            this.props.showMyAccount ?
+                                                <Divider variant="middle" /> : null
+                                        }
+                                        <MenuItem onClick={this.logoutClickHandler}><Typography>Logout</Typography></MenuItem>
+                                    </Menu>
+                                </div>
+                            </div>
+                        </Fragment>
+
+                        :
+                        //If user is not logged in, show only the logo
+                        <div>
+                            <header className='logo'>Image Viewer</header>
+                        </div>
+                }
+
+            </div>
+        )
+    }
 }
 
 export default Header;
