@@ -1,3 +1,4 @@
+  
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../../common/header/Header';
@@ -13,7 +14,9 @@ import {
     InputLabel,
     Input,
     Button,
-    FormHelperText
+    FormHelperText,
+    Card,
+    CardMedia
 } from '@material-ui/core/';
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -68,6 +71,27 @@ class Profile extends Component {
 
     closeEditNameModalHandler = () => {
         this.setState({nameEditModalOpen: false, nameEditModalClose: true})
+    }
+
+    async componentDidMount() {
+        let getUserImages = this.props.baseUrl + "me/media?fields=id,caption&access_token=" + sessionStorage.getItem("access-token");
+        let getPostDetails = this.props.baseUrl + "$postId" + "?fields=id,media_type,media_url,username,timestamp&access_token=" + sessionStorage.getItem("access-token");
+
+        let response = await fetch(getUserImages);
+        let posts = await response.json();
+        posts = posts.data;
+
+        for (let i = 0; i < posts.length; i++) {
+            response = await fetch(getPostDetails.replace('$postId', posts[i].id));
+            let details = await response.json();
+            posts[i].url = details.media_url;
+            posts[i].username = details.username;
+            posts[i].timestamp = details.timestamp;
+            posts[i].comments = [];
+            posts[i].tags = "#upgrad #upgradproject #reactjs";
+            posts[i].likes = Math.round(Math.random() * 100);
+        }
+        this.setState({ userImages: posts });
     }
 
     render() {
@@ -126,6 +150,23 @@ class Profile extends Component {
 
                             </Grid>
                             <Grid item xs={4} />
+                        </Grid>
+                    </Container>
+                    <Container>
+                        <Grid container spacing={0} direction="row" alignItems="center">
+                            {this.state.userImages &&
+                                this.state.userImages.map((details, index) => (
+                                    <Grid
+                                        item
+                                        xs={4}
+                                        key={details.id}
+                                        >
+                                        <Card variant="outlined">
+                                            <CardMedia style={{ height: 0, paddingTop: '100%' }}
+                                                image={details.url} />
+                                        </Card>
+                                    </Grid>
+                                ))}
                         </Grid>
                     </Container>
                 </div>
