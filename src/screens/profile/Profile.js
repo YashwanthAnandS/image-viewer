@@ -16,8 +16,14 @@ import {
     Button,
     FormHelperText,
     Card,
-    CardMedia
+    CardMedia,
+    Divider,
+    CardActions,
+    IconButton,
+    TextField
 } from '@material-ui/core/';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import EditIcon from '@material-ui/icons/Edit';
 
 class Profile extends Component {
@@ -94,6 +100,25 @@ class Profile extends Component {
         let likedImages = this.state.userImages;
         likedImages[index].liked = !likedImages[index].liked;
         this.setState({'userImages': likedImages})
+    }
+
+    addCommentHandler = () => {
+        let index = this.state.indexOfImageSelected;
+        var textbox = document.getElementById("add-user-comment");
+        if (textbox.value == null || textbox.value.trim() === "") {
+            return;
+        }
+        let userImagesTemp = this.state.userImages;
+        let c = userImagesTemp[index].comments;
+        if (c == null) {
+            c = textbox.value;
+        } else {
+            c = c.push([textbox.value]);
+        }
+        this.setState({
+            userImages: userImagesTemp,
+        })
+        textbox.value = '';
     }
 
     async componentDidMount() {
@@ -223,15 +248,15 @@ class Profile extends Component {
                                                         <div className='tags'> {this.state.imageSelected.tags} </div>
                                                     </Typography>
                                                     <Typography component="div" className="comment-section">
-                                                        {this.state.comments &&
-                                                        this.state.comments[this.state.indexOfImageSelected] &&
-                                                        this.state.comments[this.state.indexOfImageSelected].length > 0 &&
-                                                        this.state.comments[this.state.indexOfImageSelected].map(comment => {
-                                                            return (
-                                                                <p style={{fontSize: 16}} key={comment}>
+                                                        {
+                                                            this.state.userImages[this.state.indexOfImageSelected].comments &&
+                                                            this.state.userImages[this.state.indexOfImageSelected].comments.length > 0 &&
+                                                            this.state.userImages[this.state.indexOfImageSelected].comments.map(comment => {
+                                                                return (
+                                                                    <p style={{fontSize: 16}} key={comment}>
                                                                     <b>{this.state.username}:</b> {comment}
-                                                                </p>
-                                                            );
+                                                                    </p>
+                                                                );
                                                         })}
                                                     </Typography>
                                                 </div>
@@ -248,10 +273,11 @@ class Profile extends Component {
                                                     <Grid className="comment-add-section" container spacing={3}
                                                           alignItems='flex-end'>
                                                         <Grid item xs={10}>
-                                                            <TextField id="add-user-comment-image" className="add-comment-text-field" label="Add a comment" fullWidth={true}/>
+                                                            <TextField id="add-user-comment" label="Add a comment" fullWidth={true}/>
                                                         </Grid>
                                                         <Grid item xs={2} className="add-button">
-                                                            <Button variant="contained" id="add-comments-button" color="primary">Add</Button>
+                                                            <Button variant="contained" id="add-comments-button" color="primary" 
+                                                                onClick={() => this.addCommentHandler()} >Add</Button>
                                                         </Grid>
                                                     </Grid>
                                                 </div>
