@@ -22,6 +22,7 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
+            searchText: "",
             userImages: [],
             filteredImages: [],
             id: "17999436943341133",
@@ -50,7 +51,7 @@ class Home extends Component {
             posts[i].username = details.username;
             posts[i].timestamp = details.timestamp;
             posts[i].comments = [];
-            posts[i].tags = "#upgrad #reactjs #assignment #Course8";
+            posts[i].tags = "#upgrad #upgradproject #reactjs";
             posts[i].likes = Math.round(Math.random() * 100);
             posts[i].isLiked = false;
         }

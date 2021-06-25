@@ -1,0 +1,19 @@
+#dp {
+    width: 120px;
+    height: 125px;
+    border: 1px solid whitesmoke;
+}
+
+#info-container{
+    margin: 10px;
+}
+
+#edit-name {
+    width: 35px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+#info-container{
+    margin: 10px;
+}
