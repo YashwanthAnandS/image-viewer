@@ -7,7 +7,13 @@ import {
     Container,
     Fab,
     Typography,
-    Grid
+    Grid,
+    Modal,
+    FormControl,
+    InputLabel,
+    Input,
+    Button,
+    FormHelperText
 } from '@material-ui/core/';
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -21,8 +27,47 @@ class Profile extends Component {
             fullName: "Yash",
             likes: [],
             url: "https://scontent.cdninstagram.com/v/t51.29350-15/201632985_2925903117736581_3526366745971372327_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=IUK_S-rzpJcAX8yTwXf&_nc_oc=AQnzJXnjOEbDYzAEmClHfW4lmDEC6UXhF5DGS1sILSVNuIleEN6JW3WM8jEhx8wJbIA&_nc_ht=scontent.cdninstagram.com&oh=cdfe0a2145142270992a0005f9d960d8&oe=60D21CAA",
-            loggedIn: sessionStorage.getItem("access-token") == null ? false : true
+            loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
+            numPosts: Math.round(Math.random() * 100),
+            followedBy: Math.round(Math.random() * 100),
+            following: Math.round(Math.random() * 100),
+            nameEditModalOpen: false,
+            nameEditModalClose: true,
+            nameRequireLabel: "hide"
         }
+    }
+
+    editNameFieldChangeHandler = (e) => {
+        if (e.target.value === '') {
+            this.setState({newFullName: e.target.value})
+        } else {
+            this.setState({newFullName: e.target.value})
+        }
+    }
+
+    editNameUpdateButtonHandler = () => {
+        if (this.state.newFullName == null || this.state.newFullName.trim() === "") {
+            this.setState({
+                nameRequireLabel: "show"
+            })
+        } else {
+            this.setState({
+                fullName: this.state.newFullName,
+                newFullName: '',
+                nameRequireLabel: "hide"
+            })
+
+            this.closeEditNameModalHandler();
+        }
+
+    }
+
+    openEditNameModalHandler = () => {
+        this.setState({nameEditModalOpen: true, nameEditModalClose: false})
+    }
+
+    closeEditNameModalHandler = () => {
+        this.setState({nameEditModalOpen: false, nameEditModalClose: true})
     }
 
     render() {
@@ -44,24 +89,40 @@ class Profile extends Component {
                                 </Typography>
                                 <Grid container spacing={3} justify="center" style={{ paddingBottom: 15 }}>
                                     <Grid item xs={4}>
-                                        Posts:{" "}
-                                        {Math.round(Math.random() * 100)}
+                                        Posts:&nbsp;{this.state.numPosts}
                                     </Grid>
                                     <Grid item xs={4}>
-                                        Follows:{" "}
-                                        {Math.round(Math.random() * 1000)}
+                                        Follows:&nbsp;{this.state.following}
                                     </Grid>
                                     <Grid item xs={4}>
-                                        Followed By:{" "}
-                                        {Math.round(Math.random() * 1000)}
+                                        Followed By:&nbsp;{this.state.followedBy}
                                     </Grid>
                                 </Grid>
                                 <Typography variant="h6" component="h2" style={{ marginTop: 5 }}>
                                     {this.state.fullName}
-                                    <Fab color="secondary" id="edit-name" aria-label="edit" >
+                                    <Fab color="secondary" id="edit-name" aria-label="edit" onClick={this.openEditNameModalHandler}>
                                         <EditIcon fontSize="small" />
                                     </Fab>
                                 </Typography>
+
+                                <Modal open={this.state.nameEditModalOpen} onClose={this.closeEditNameModalHandler} >
+                                    <div className="edit-modal" >
+                                        <Typography variant="h5" style={{ paddingBottom: 15 }}>
+                                            Edit
+                                        </Typography>
+                                        <FormControl required>
+                                            <InputLabel htmlFor="fullName">Full Name</InputLabel>
+                                            <Input id="fullName" type="text" onChange={this.editNameFieldChangeHandler} />
+                                            <FormHelperText>
+                                                <span className={this.state.nameRequireLabel} style={{ color: "red" }}>required</span>
+                                            </FormHelperText>
+                                        </FormControl>
+                                        <div style={{ marginTop: 25 }}>
+                                            <Button variant="contained" color="primary"
+                                                onClick={this.editNameUpdateButtonHandler}>UPDATE</Button>
+                                        </div>
+                                    </div>
+                                </Modal>
 
                             </Grid>
                             <Grid item xs={4} />
