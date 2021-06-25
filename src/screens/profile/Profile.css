@@ -36,3 +36,98 @@
 .show {
     display: block;
 }
+
+.selected-image-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    box-shadow: black;
+    inline-size: fit-content;
+}
+
+.image-on-grid{
+    cursor: pointer;
+}
+
+#modal-profile-pic{
+    height: 60px;
+    width: 60px;
+    border: 1px solid whitesmoke;
+}
+
+#edit-profile {
+    width: 35px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.edit-modal-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+
+}
+
+.selected-image-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    box-shadow: black;
+    inline-size: fit-content;
+}
+
+.lower-section{
+    vertical-align: bottom;
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 20px;
+    width: 50%;
+}
+
+.like-button{
+    display: inline-block;
+    padding: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+.right-section{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.user-detail-section {
+    vertical-align: top;
+
+}
+
+.divider{
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.add-button {
+    vertical-align: bottom;
+    inline-size: fit-content;
+}
+
+.comment-add-section {
+    vertical-align: bottom;
+    margin-bottom: 0%;
+}

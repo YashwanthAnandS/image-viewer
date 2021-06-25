@@ -30,7 +30,7 @@ class Home extends Component {
             username: "yashspecter",
             // timestamp: "2021-06-17T07:09:56+0000",
             // tags: "#upgrad #reactjs #assignment #Course8",
-            likes: [],
+           // likes: [],
             // comments: [],
             loggedIn: sessionStorage.getItem("access-token") == null ? false : true
         }
@@ -53,7 +53,7 @@ class Home extends Component {
             posts[i].comments = [];
             posts[i].tags = "#upgrad #upgradproject #reactjs";
             posts[i].likes = Math.round(Math.random() * 100);
-            posts[i].isLiked = false;
+            posts[i].liked = false;
         }
         this.setState({ userImages: posts });
         this.setState({ filteredImages: posts.filter(x => true) });
@@ -63,8 +63,8 @@ class Home extends Component {
 
 likeHandler = (index) => {
     let likedImages = this.state.userImages;
-    likedImages[index].isLiked = !likedImages[index].isLiked;
-    this.setState({'userImages': likedImages})
+        likedImages[index].liked = !likedImages[index].liked;
+        this.setState({'userImages': likedImages})
 }
 
 commentHandler = (index) => {
@@ -107,7 +107,7 @@ render() {
     return (
         <div>
             <div>
-            <Header {...this.props} loggedIn={true} dpUrl={this.state.url} showMyAccount={true} showSearch={true} handleChange={this.handleChange} />
+                <Header {...this.props} loggedIn={true} dpUrl={this.state.url} showMyAccount={true} showSearch={true} handleChange={this.handleChange} />
                 </div>
                 <Container className='posts-container'>
                 <Grid container alignContent='center' justify='flex-start' direction='row' spacing={2}>
@@ -127,13 +127,13 @@ render() {
                                         <br />
                                         <div className='likes'>
                                             {
-                                                details.isLiked ?
+                                                details.liked ?
                                                     <FavoriteIcon fontSize='default' style={{ color: "red" }} onClick={() => this.likeHandler(index)} />
                                                     :
                                                     <FavoriteBorderIcon fontSize='default' onClick={() => this.likeHandler(index)} />
                                             }
                                             <Typography>
-                                                <span>&nbsp;{details.isLiked ? (details.likes+1) + ' likes' : details.likes + ' likes'}</span>
+                                                <span>&nbsp;{details.liked ? (details.likes+1) + ' likes' : details.likes + ' likes'}</span>
                                             </Typography>
                                         </div>
 
