@@ -13,27 +13,33 @@ class Header extends Component {
         }
     }
 
+    // On clicking the 'Image Viewer' logo. Redirect to Home.
     logoClickHandler = () => {
         this.props.history.push('/home');
     }
 
+    // On clicking the profile picture.
+    profileClickHandler = (e) => {
+        this.setState({ 'openMenu': !this.state.openMenu, 'anchorEl': e.currentTarget });
+    }
+
+    // On selecting 'My account' in the menu. Redirect to profile.
     myAccountClickHandler = () => {
         this.props.history.push('/profile');
     }
 
+    // On selecting 'Logout' in the menu. Remove access token and Redirect to login.
     logoutClickHandler = () => {
         sessionStorage.removeItem('access-token');
         this.props.history.push('/');
     }
 
-    profileClickHandler = (e) => {
-        this.setState({'openMenu': !this.state.openMenu, 'anchorEl': e.currentTarget});
-    }
-
+    // Closes the Menu.
     menuCloseHandler = () => {
-        this.setState({'openMenu': !this.state.openMenu, 'anchorEl': null});
+        this.setState({ 'openMenu': !this.state.openMenu, 'anchorEl': null });
     }
 
+    // The function to set a new state for input.
     handleChange = e => {
         this.props.handleChange(e);
     };
@@ -43,14 +49,14 @@ class Header extends Component {
             <div className="header">
                 {
                     this.props.loggedIn === true ?
-                        //If user is logged in show Search Bar and Profile Picture on Header
+                        //If user is logged in show Profile Picture on Header. Shows Search bar only in case of Home page.
                         <Fragment>
                             <div>
                                 <header className='logo' onClick={this.logoClickHandler}>Image Viewer</header>
                             </div>
                             <div className='header-right-section'>
-                            {
-                                    this.props.showSearch ?
+                                {
+                                    this.props.showSearch ? // This prop would be passed from Home.js for enabling Search bar.
                                         <Input className='search' type='search' placeholder='Search...' p={5} onChange={(e) => this.handleChange(e)} disableUnderline
                                             startAdornment={
                                                 <InputAdornment position="start"><SearchIcon /></InputAdornment>
@@ -58,18 +64,18 @@ class Header extends Component {
                                         : null
                                 }
                                 <IconButton id='profile-icon' onClick={this.profileClickHandler}>
-                                    <Avatar variant="circle" alt="profile_picture" style={{border: '2px solid whitesmoke'}} src={this.props.dpUrl}/>
+                                    <Avatar variant="circle" alt="profile_picture" style={{ border: '2px solid whitesmoke' }} src={this.props.dpUrl} />
                                 </IconButton>
                                 <div>
                                     <Menu open={this.state.openMenu} onClose={this.menuCloseHandler}
                                         anchorEl={this.state.anchorEl} getContentAnchorEl={null}
                                         anchorOrigin={{ vertical: "bottom", horizontal: "right" }} keepMounted>
                                         {
-                                            this.props.showMyAccount ?
+                                            this.props.showMyAccount ? // This prop would be passed from Home.js for enabling My Account option.
                                                 <MenuItem onClick={this.myAccountClickHandler}>
                                                     <Typography>My Account</Typography>
                                                     <Divider variant="middle" />
-                                                </MenuItem> 
+                                                </MenuItem>
                                                 : null
                                         }
                                         {

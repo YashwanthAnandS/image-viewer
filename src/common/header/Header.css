@@ -1,3 +1,4 @@
+/* The master container for header. */
 .header {
     display: flex;
     flex-direction: row;
@@ -6,6 +7,7 @@
     height: 60px;
 }
 
+/* Logo 'Image Viewer' on the left. */
 .logo {
     color: #fff; 
     padding: 20px; 
@@ -13,10 +15,12 @@
     cursor: pointer;
 }
 
+/* The right section in the logo consisting of Search and profile picture. */
 .header-right-section{
     display: flex;
 }
 
+/* Search Box */
 .search {
     padding: 5px;
     display: inline-flex;
@@ -27,10 +31,12 @@
     margin: 10px 0px 10px 0px;
 }
 
+/* The line seperating the menu options 'My Account' and 'Logout'. Only for Home page. */
 .horizontal-line{
     margin: 2px 10px 2px 10px;
 }
 
+/* For grey background in the menu. */
 .MuiMenu-list {
     background-color: #c0c0c0;
     color: black;

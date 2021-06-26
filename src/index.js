@@ -7,7 +7,7 @@ import Controller from './common/Controller';
 ReactDOM.render(
     <React.StrictMode>
         <div>
-        <Controller />
+            <Controller />
         </div>
     </React.StrictMode>,
     document.getElementById('root')
